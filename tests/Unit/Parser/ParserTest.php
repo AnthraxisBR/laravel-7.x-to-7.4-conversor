@@ -35,4 +35,6 @@ class ParserTest extends TestCase
         $this->assertTrue(is_array($this->parser->getExplodedFileContents()));
 
     }
+
+
 }

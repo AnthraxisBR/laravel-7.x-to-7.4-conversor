@@ -33,4 +33,21 @@ class ClassParserTest extends TestCase
         var_dump($this->parser->getClassInitIndex());
     }
 
+
+    public function testGetAttributes()
+    {
+
+        $this->parser = new ParseClass(env('PROJECT_PATH') . '/app/Models/Comment.php');
+        $this->assertTrue(is_string($this->parser->getFileContents()));
+
+        $this->parser->explodeFileContents();
+
+        $this->assertTrue(is_array($this->parser->getExplodedFileContents()));
+
+        $this->parser->findClassInitIndex();
+        $this->parser->findFirstFunctionIndex();
+
+        $this->parser->getAttributes();
+    }
+
 }
