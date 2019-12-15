@@ -12,4 +12,5 @@ class ClassFunctions
         'private', 'protected', 'public'
     ];
 
+
 }
