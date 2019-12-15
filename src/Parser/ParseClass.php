@@ -16,11 +16,25 @@ class ParseClass extends Parser
 
     public int $firstFunctionClassIndex;
 
-    public function getAttributes()
+    public function __construct(string $filePath)
     {
+        parent::__construct($filePath);
 
+        $this->setClassAttributes(new ClassAttributes());
     }
 
+    public function getAttributes()
+    {
+        for ($i = $this->getClassInitIndex(); $i <= $this->getFirstFunctionClassIndex(); $i++) {
+            if($this->getClassAttributes()->lineHasAttribute($this->getLineContectFromIndex($i))){
+                echo $this->getLineContectFromIndex($i);
+            }
+        }
+    }
+
+    /**
+     *
+     */
     public function findClassInitIndex()
     {
         foreach ($this->getExplodedFileContents() as $line => $string){
@@ -31,15 +45,26 @@ class ParseClass extends Parser
         }
     }
 
-    public function findFirstFunctionIndex()
+    /**
+     *
+     */
+    public function findFirstFunctionIndex() : void
     {
-
         foreach ($this->getExplodedFileContents() as $line => $string){
             if(strpos($string, ' function ') !== false){
                 $this->setFirstFunctionClassIndex($line);
                 break;
             }
         }
+    }
+
+    /**
+     * @param int $index
+     * @return mixed
+     */
+    public function getLineContectFromIndex(int $index) : string
+    {
+        return $this->getExplodedFileContents()[$index];
     }
 
     /**
